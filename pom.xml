@@ -4,29 +4,28 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>ucr.lab</groupId>
-  <artifactId>Laboratory6</artifactId>
+  <groupId>edu.ucr.mvcjson.C4L113.C4H741</groupId>
+  <artifactId>lab-mvc-swing-json</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>Laboratory6</name>
+  <name>lab-mvc-swing-json</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <junit.version>5.10.2</junit.version>
-  </properties>
+<junit.version>5.12.1</junit.version>  </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>17.0.6</version>
+      <version>21.0.6</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>17.0.6</version>
+      <version>21.0.6</version>
     </dependency>
 
-    <dependency>
+<dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.version}</version>
@@ -37,8 +36,7 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>
-  </dependencies>
+    </dependency>  </dependencies>
 
   <build>
     <plugins>
@@ -60,7 +58,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>ucr.lab.laboratory6/ucr.lab.laboratory6.HelloApplication</mainClass>
+              <mainClass>edu.ucr.mvcjson.c4l113.c4h741.labmvcswingjson/edu.ucr.mvcjson.c4l113.c4h741.labmvcswingjson.HelloApplication</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
