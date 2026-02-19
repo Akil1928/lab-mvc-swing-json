@@ -19,17 +19,14 @@ public class PlayerController {
 
 
     public void registerPlayer(String name, Sport sport, String position, String shirtNumber) {
-        // Validate name
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name must not be empty.");
         }
 
-        // Validate sport
         if (sport == null) {
             throw new IllegalArgumentException("Sport must be selected.");
         }
 
-        // Validate shirt number
         int number;
         try {
             number = Integer.parseInt(shirtNumber.trim());
@@ -44,11 +41,6 @@ public class PlayerController {
         repository.save(player);
     }
 
-    /**
-     * Returns all registered players.
-     *
-     * @return unmodifiable list of players
-     */
     public List<Player> getAllPlayers() {
         return repository.findAll();
     }

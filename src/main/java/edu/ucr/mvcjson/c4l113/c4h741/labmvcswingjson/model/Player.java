@@ -1,9 +1,5 @@
 package edu.ucr.mvcjson.c4l113.c4h741.labmvcswingjson.model;
 
-/**
- * Represents a sports player with name, sport, position and shirt number.
- * Uses standard JavaBean style so Jackson can serialize/deserialize it.
- */
 public class Player {
 
     private String name;
@@ -11,25 +7,15 @@ public class Player {
     private String position;
     private int shirtNumber;
 
-    /** No-arg constructor required by Jackson. */
     public Player() {}
 
-    /**
-     * Creates a fully initialized Player.
-     *
-     * @param name        the player's full name (non-empty)
-     * @param sport       the sport the player practices
-     * @param position    the player's field position
-     * @param shirtNumber the player's shirt number (> 0)
-     */
     public Player(String name, Sport sport, String position, int shirtNumber) {
         this.name = name;
         this.sport = sport;
         this.position = position;
         this.shirtNumber = shirtNumber;
     }
-
-    // ── Getters ──────────────────────────────────────────────────────────────
+    //getters
 
     public String getName() {
         return name;
@@ -47,7 +33,7 @@ public class Player {
         return shirtNumber;
     }
 
-    // ── Setters (required by Jackson) ────────────────────────────────────────
+    // Setters
 
     public void setName(String name) {
         this.name = name;
