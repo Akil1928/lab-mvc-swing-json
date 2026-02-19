@@ -1,31 +1,29 @@
 package edu.ucr.mvcjson.c4l113.c4h741.labmvcswingjson.repository;
 
-
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ucr.mvcjson.c4l113.c4h741.labmvcswingjson.model.Player;
-import java.io.File;
+
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class JsonPlayerRepository implements PlayerRepository {
 
-    private static final String FILE_PATH = "data/players.json";
+    private static final Path FILE_PATH = Path.of("data", "players.json");
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final JavaType PLAYER_LIST_TYPE =
+            MAPPER.getTypeFactory().constructCollectionType(List.class, Player.class);
+
     private final List<Player> players = new ArrayList<>();
 
-    /**
-     * Constructs the repository and loads any existing players from disk.
-     * If the file does not exist, the repository starts empty.
-     */
     public JsonPlayerRepository() {
         loadFromDisk();
     }
-
-    // ── PlayerRepository ─────────────────────────────────────────────────────
 
     @Override
     public void save(Player player) {
@@ -38,35 +36,23 @@ public class JsonPlayerRepository implements PlayerRepository {
         return Collections.unmodifiableList(players);
     }
 
-    // ── Private helpers ───────────────────────────────────────────────────────
-
-    /**
-     * Reads the JSON file from disk and populates the in-memory list.
-     * Silently skips loading if the file does not exist.
-     */
     private void loadFromDisk() {
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            return; // nothing to load on first run
+        if (!Files.exists(FILE_PATH)) {
+            return;
         }
         try {
-            List<Player> loaded = mapper.readValue(file, new TypeReference<List<Player>>() {});
+            List<Player> loaded = MAPPER.readValue(FILE_PATH.toFile(), PLAYER_LIST_TYPE);
+            players.clear();
             players.addAll(loaded);
-            System.out.println("Loaded " + players.size() + " player(s) from " + FILE_PATH);
         } catch (IOException e) {
             System.err.println("Warning: could not load " + FILE_PATH + " – " + e.getMessage());
         }
     }
 
-    /**
-     * Writes the full in-memory list to disk as a JSON array.
-     * Creates the {@code data/} directory if it does not exist.
-     */
     private void persistToDisk() {
-        File file = new File(FILE_PATH);
-        file.getParentFile().mkdirs(); // ensure data/ directory exists
         try {
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, players);
+            Files.createDirectories(FILE_PATH.getParent());
+            MAPPER.writerWithDefaultPrettyPrinter().writeValue(FILE_PATH.toFile(), players);
         } catch (IOException e) {
             System.err.println("Error: could not write " + FILE_PATH + " – " + e.getMessage());
         }
