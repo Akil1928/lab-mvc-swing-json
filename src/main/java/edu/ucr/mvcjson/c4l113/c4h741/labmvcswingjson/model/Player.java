@@ -13,4 +13,5 @@ public record Player(String name, Sport sport, String position, int shirtNumber)
             throw new IllegalArgumentException("El número de camiseta debe ser mayor a 0");
         }
     }
+
 }
